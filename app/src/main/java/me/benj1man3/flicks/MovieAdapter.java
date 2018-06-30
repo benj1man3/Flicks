@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import me.benj1man3.flicks.models.Config;
 import me.benj1man3.flicks.models.Movie;
 
@@ -67,15 +68,15 @@ public class MovieAdapter  extends RecyclerView.Adapter<MovieAdapter.ViewHolder>
         String imageUrl = config.getImageUrl(config.getPosterSize(), movie.getPosterPath());
 
         //load image using glide
-        Glide.with(context)
+        
+        Glide.with(holder.itemView)
                 .load(imageUrl)
                 .apply(
                         RequestOptions.placeholderOf(R.drawable.flicks_movie_placeholder)
                                 .error(R.drawable.flicks_movie_placeholder)
-
+                                .fitCenter()
                 )
-
-                .into(holder.ivPosterImage);
+                .apply(RequestOptions.bitmapTransform(new RoundedCornersTransformation(25, 0))).into(holder.ivPosterImage);
 
     }
 
